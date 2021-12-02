@@ -17,7 +17,6 @@ public class BubblePictures: NSObject {
         self.collectionView?.dataSource = nil
         self.collectionView?.delegate = nil
         super.init()
-        registerForNotifications()
         registerCells()
         setCollectionViewAlignment()
         truncateCells(configFiles: configFiles)
@@ -139,15 +138,7 @@ public class BubblePictures: NSObject {
         let height = self.collectionView?.bounds.height ?? 0.0
         return layoutConfigurator.distanceInterBubbles ?? (height / 3.0)
     }
-    fileprivate var maxNumberOfBubbles: Int {
-        let width = self.collectionView?.bounds.width ?? 0.0
-        let height = self.collectionView?.bounds.height ?? 0.0
-        let calculationMaxNumberOfBubbles = Int(floor((width - negativeInsetWidth) / (height - negativeInsetWidth)))
-        guard let maxNumberPreferredByUser = layoutConfigurator.maxNumberOfBubbles else {
-            return calculationMaxNumberOfBubbles
-        }
-        return min(maxNumberPreferredByUser + 1, calculationMaxNumberOfBubbles)
-    }
+    fileprivate var maxNumberOfBubbles: Int = 5
     internal class var bubblePicturesBundle: Bundle? {
         let podBundle = Bundle(for: self)
         guard
